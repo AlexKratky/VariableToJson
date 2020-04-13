@@ -29,11 +29,11 @@ class VariableToJson {
         self::$maxLength = $maxLength;
     }
     
-    public static function convert($var, $pretty = false) {
+    public static function convert($var, $pretty = false, $raw = false) {
         self::$hashes = [];
         $var = self::convert_raw($var);
         $var['location'] = self::findLocation(is_callable($var));
-        return ($pretty ? json_encode(($var), JSON_HEX_QUOT | JSON_PRETTY_PRINT) : json_encode(($var), JSON_HEX_QUOT)); // | JSON_PRETTY_PRINT
+        return ($raw ? $var : ($pretty ? json_encode(($var), JSON_HEX_QUOT | JSON_PRETTY_PRINT) : json_encode(($var), JSON_HEX_QUOT)));
     }
 
     public static function convert_raw($var, $name = null, $modifier = null, $depth = 0) {
