@@ -13,10 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: MilesChou/php-tools-action/phpcs@master
-    - uses: MilesChou/php-tools-action/phpmd@master
-    - uses: MilesChou/php-tools-action/phpmetrics@master
-    - uses: MilesChou/php-tools-action/phpstan@master
 
     - name: Validate composer.json and composer.lock
       run: composer validate
@@ -33,6 +29,10 @@ jobs:
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
+      
+    - name: PHP tool Action
+      uses: MilesChou/php-tools-action@v1.0.0
+
 
   
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
